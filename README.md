@@ -51,7 +51,7 @@ Static sites can have a lower carbon footprint, but measuring carbon footprint f
 
 - Version control (if you use git)
 - No clunky CMS (get to edit content directly)
-- Portability (you can easily take your content with you)
+- Portability (you can easily take your content with you in a sustainable way)
 
 Overall, recommend if you have:
 
@@ -400,6 +400,8 @@ Example sites with Jekyll
 - [Scholars' Lab website](https://scholarslab.lib.virginia.edu/) and [github repo](https://github.com/scholarslab/scholarslab.org)
 
 - [Programming Historian](https://programminghistorian.org/) and [github repo](https://github.com/programminghistorian/jekyll)
+  
+- [Wax a Jekyll version of Omeka](https://minicomp.github.io/wax/) and [Ed a Jekyll theme for minimal computing](http://elotroalex.github.io/ed/)
   
 1. Pelican and Python
 
