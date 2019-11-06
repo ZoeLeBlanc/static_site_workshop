@@ -39,24 +39,47 @@ Outlines some of the main benefits of Static Sites in 2015:
 
 *Are these still the benefits in 2019?*
 
+Yes and no.
 
+You'll still need to deal with outdated package dependencies with vulnerabilities and web server hosting for the static site, which can be vulnerable to security breaches.
 
+Static sites might be less work than a web application, but they do require more technical maintenance than a Wordpress site.
+
+Static sites can have a lower carbon footprint, but measuring carbon footprint for websites can be tricky. A static site might load faster, but at might be slow to load when you're building the site depending on the generator you choose.
+
+Where they shine imho?
+
+- Version control (if you use git)
+- No clunky CMS (get to edit content directly)
+- Portability (you can easily take your content with you)
+
+Overall, recommend if you have:
+
+- an interest in coding
+- want to customize your website
+- care about minimizing the size of your website and controling what infrastructure it relies on
+
+If you just want to blog or have a CV online, might want to try a free Wordpress or Tumblr site before making the investment in a static site.
 
 ## How does a static site actually work?
 
-could just use a basic html page
-[List of Static Site Generators](https://archive.ph/JyxfS)
+A google search for static site generators returns millions of medium and quora debates over which is the best to choose, but few actually delve into the mechanics.
 
-How do some of the top static site libraries work?
+At it's core a static site generator takes some form of plain text file and transforms it into html files. These generator libraries will also let you style your website using a combinator of layouts, modular html, style sheets, and javascript.
 
+
+
+## Github and Static Sites
+
+[Configuring a custom domain with Github Pages and a static site](https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)
+
+[List of top static site generators](https://www.staticgen.com/) and [curated list of static site resources](https://github.com/myles/awesome-static-generators)
 
 1. Jekyll and Ruby
 
 - [Jekyll style guide](https://ben.balter.com/jekyll-style-guide/)
 
 - [Setting up a GitHub Pages site with Jekyll](https://help.github.com/en/github/working-with-github-pages/setting-up-a-github-pages-site-with-jekyll)
-
-#### Migrating to Jekyll
 
 - [Jekyll’s documentation on migrating existing websites](https://import.jekyllrb.com/docs/home/)
 - [Ben Balter’s WordPress plugin for exporting data from WordPress into Jekyll](https://wordpress.org/plugins/jekyll-exporter/)
@@ -67,6 +90,3 @@ How do some of the top static site libraries work?
 3. Hugo and Go
 
 
-## Github and Static Sites
-
-https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site
