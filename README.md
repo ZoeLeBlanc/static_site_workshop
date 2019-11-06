@@ -18,7 +18,7 @@ This workshop is intended to give a broad overview to static sites, what they ar
 
 Static sites are usually defined by what they aren't - namely web applications. This definition can be a bit confusing though because static sites still need to be hosted by a server and are written in programming languages that you might use to build web apps. Even more confusing is that you can still have dynamic, user interactive content on a static site through JavaScript.
 
-So is there actually any difference between static sites and dynamic web apps?
+So, is there actually any difference between static sites and dynamic web apps?
 
 While increasingly the two overlap, one of the main differences remains that static sites do not have live databases. You might still have data on a static site (a JSON file for example) but this data gets loaded with the website, not after the fact.
 
@@ -66,9 +66,9 @@ In the end, static sites can be just as time consuming (if not more) than a free
 
 ## How does a static site actually work?
 
-A google search for static site generators returns millions of medium and quora posts over which static site is the best, but few of these actually delve into the mechanics.
+A google search for static site generators returns millions of medium and quora posts debating which static site is the best, but few of these actually delve into the mechanics.
 
-At it's core a static site generator takes some form of plain text file and transforms it into html files. These generator libraries will also let you style your website using a combinator of layouts, modular html, style sheets, and javascript.
+Fundamentally, a static site generator takes some form of plain text file and transforms it into html files. These generator libraries will also let you style your website using a combinator of layouts, modular html, style sheets, and javascript.
 
 Most static site generators rely on similar patterns for how to manipulate your data, even if the details differ.
 
@@ -261,8 +261,27 @@ cd sass
 
 They have themes that you can install to change the styling of your website.
 
+Pelican:
 ```bash
 pelican-themes --list
+```
+
+Hugo:
+```bash
+# Download the theme
+git init
+git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
+# Note for non-git users:
+#   - If you do not have git installed, you can download the archive of the latest
+#     version of this theme from:
+#       https://github.com/budparr/gohugo-theme-ananke/archive/master.zip
+#   - Extract that .zip file to get a "gohugo-theme-ananke-master" directory.
+#   - Rename that directory to "ananke", and move it into the "themes/" directory.
+# End of note for non-git users.
+
+# Edit your config.toml configuration file
+# and add the Ananke theme.
+echo 'theme = "ananke"' >> config.toml
 ```
 
 And finally, they have commands that you can use to build the site:
@@ -308,16 +327,44 @@ Gatsby:
 gatsby develop #or serve
 ```
 
-## Hosting Static Sites
+## Hosting and Testing Static Sites
 
 - Github
-[Configuring a custom domain with Github Pages and a static site](https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)
+  - [Hosting your static site through Github Pages (this example is with jekyll)](https://help.github.com/en/github/working-with-github-pages/setting-up-a-github-pages-site-with-jekyll)
 
-- Netlify
+  - [Configuring a custom domain with Github Pages and a static site](https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)
+
+- Netlify (Better for larger projects with a team)
+  - [Netlify docs](https://docs.netlify.com/configure-builds/get-started/)
+  - Provides continuous deployment while you're developing so that you can share URLs
+  - [Github Pages vs Netlify](https://www.netlify.com/github-pages-vs-netlify/)
 
 - Testing and TravisCI
+  - Used for testing your code before you push your code to Github *and* for making sure your code is not broken when it's hosted
+  - [Travis CI ](https://travis-ci.org/) and [docs](https://docs.travis-ci.com/)
+  
+```bash
+#!/usr/bin/env bash
+set -e # halt script on error
 
-## Test out a Static Site
+# bundle exec jekyll build
+# # bundle exec htmlproofer ./_site
+# # to exclude external sites
+# bundle exec htmlproofer ./_site --disable-external
+bundle exec jekyll build && bundle exec htmlproofer ./_site \
+  --assume-extension \
+  --empty-alt-ignore \
+  --disable-external \
+  --alt-ignore '/.*/' \
+  --allow-hash-href \
+  --only-4xx \
+  --http-status-ignore 429,403,404,410 \
+  --file-ignore /.*\/node_modules\/.*/ \
+
+  # --url-ignore '/http://www.gutenberg.org/*/','/https://github.com/programminghistorian/jekyll/(commits|blob)/*/','/\#/',"/espanol/","/deprecated/",'/collection.britishmuseum.org/','/analytics.hathitrust.org/'
+```
+
+## Try out some Static Sites
 
 Almost every programming language has a static site generator, if not multiple.
 
@@ -334,6 +381,8 @@ Jekyll is the workhorse of DH, but has become less popular in recent years in th
 - [How to quickstart with Jekyll](https://jekyllrb.com/docs/installation/macos/) and [tutorial](https://jekyllrb.com/docs/step-by-step/01-setup/)
 
 - [Jekyll Github Repo](https://github.com/jekyll/jekyll)
+  
+- [Jekyll Themes](http://jekyllthemes.org/)
 
 - [Jekyll style guide](https://ben.balter.com/jekyll-style-guide/)
 
@@ -344,6 +393,13 @@ Jekyll is the workhorse of DH, but has become less popular in recent years in th
 - [Ben Balter’s WordPress plugin for exporting data from WordPress into Jekyll](https://wordpress.org/plugins/jekyll-exporter/)
 
 - [Exitwp, a Python script developed by Thomas Frössman](https://github.com/thomasf/exitwp)
+
+- [Programming Historian's Jekyll Lesson](https://programminghistorian.org/en/lessons/building-static-sites-with-jekyll-github-pages) and [newly proposed lesson](https://programminghistorian.github.io/ph-submissions/lessons/collaborative-blog-with-jekyll-github)
+
+Example sites with Jekyll
+- [Scholars' Lab website](https://scholarslab.lib.virginia.edu/) and [github repo](https://github.com/scholarslab/scholarslab.org)
+
+- [Programming Historian](https://programminghistorian.org/) and [github repo](https://github.com/programminghistorian/jekyll)
   
 1. Pelican and Python
 
@@ -353,15 +409,38 @@ Jekyll is the workhorse of DH, but has become less popular in recent years in th
 
 - [Pelican Themes](https://docs.getpelican.com/en/stable/pelican-themes.html)
 
-3. Gatsby and React
+Example sites with Pelican:
+- [Personal Website example](https://kevinyap.ca/) and [github repo](https://github.com/iKevinY/iKevinY.github.io)
+- [Andrew Heiss website](https://www.andrewheiss.com/) and [github repo](https://github.com/andrewheiss/ath-pelican)
 
-Try getting Gatsby working through the command line tool and npm.
-
-Try editing the `gatsby-config`, is it the same as a `config.yml` in jekyll?
+1. Gatsby and React
 
 - [Gatsby tutorials](https://www.gatsbyjs.org/tutorial/)
-- [Gatsby demo site](https://cara.lekoarts.de/), [github repo](https://github.com/LekoArts/gatsby-starter-portfolio-cara)
+- [Gatsby Github Repo](https://github.com/gatsbyjs/gatsby)
+- [Gatsby with Github Pages](https://www.gatsbyjs.org/docs/how-gatsby-works-with-github-pages/)
+- [Awesome Gatsby Resources](https://github.com/prayash/awesome-gatsby)
+- [Gatsby Themes](https://www.gatsbyjs.org/docs/themes/)
 
-4. Hugo and Go
+Example sites with Gatsby
+- [Gatsby demo site](https://cara.lekoarts.de/) and [github repo](https://github.com/LekoArts/gatsby-starter-portfolio-cara)
+- [Tania Rascia's personal website](https://www.taniarascia.com/) and [github repo](https://github.com/taniarascia/taniarascia.com)
 
+1. Hugo and Go
 
+- [Hugo quick start](https://gohugo.io/getting-started/quick-start/)
+- [Hugo documentation](https://gohugo.io/documentation/) and [github repo](https://github.com/gohugoio/hugo)
+- [Hugo Themes](https://themes.gohugo.io/)
+  
+Example sites with Hugo
+- [Jason Heppler's personal website](https://github.com/hepplerj/jasonheppler.org)
+- [Grant Wythoff's personal website](https://wythoff.net/)
+
+## Some broader questions to help you decide what's the best fit for you
+
+1. What programming language are you interested in using or learning? Most of these involve using HTML, CSS, and JavaScript, but some like GatsbyJS require some knowledge of React whereas Jekyll only requires a tiny bit of Ruby to work in the Makefile
+
+2. How much complexity will your site have? How many pages? How many different types of content? Some static site generators and themes make assumptions for how your content is organized so you may want to find a fairly close example project.
+
+3. How many contributors? If you are working on a team, you'll want to invest in testing, continuous integration and deployment to make sure the site doesn't break. You'll also want to decide on an editorial process (for an example see [the submissions process for the Programming Historian](https://github.com/programminghistorian/ph-submissions)).
+
+4. How much do you want to customize your site? Some static site generators like Gatsby are easier to customize the styling, whereas others have a whole host of themes to choose from but are harder to manipulate.
