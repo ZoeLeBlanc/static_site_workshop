@@ -74,18 +74,51 @@ Most static site generators rely on similar patterns for how to manipulate your 
 
 To get a static site generator on your computer, means the first step is to usually download a code library. These libraries contain the code to transform your data, and they are almost always available to see on github if you want to delve deeper.
 
-```python3
+Pelican:
+```bash
 pip install pelican
+```
+
+Jekyll:
+```bash
+gem install jekyll
+```
+
+Hugo:
+```bash
+brew install hugo
+```
+
+Gatsby:
+```bash
+npm install -g gatsby-cli
 ```
 
 The next step is to find a tutorial or look at the documentation for how to setup a project locally. This step will usually involve typing a command in your terminal shell that tells the static site generator to create a new project.
 
-```python3
+Pelican:
+```bash
 pelican-quickstart
+```
+
+Jekyll:
+```bash
+jekyll new-project
+```
+
+Hugo:
+```bash
+hugo new site quickstart
+```
+
+Gatsby:
+```bash
+gatsby new gatsby-site
 ```
 
 You'll then see a bunch of activity in your terminal and when it's completed you'll have an entire project structure in what was once an empty directory.
 
+Pelican:
 ```python3
 yourproject/
 ├── content
@@ -97,21 +130,82 @@ yourproject/
 └── publishconf.py       # Settings to use when ready to publish
 ```
 
+Jekyll:
+```bash
+.
+├── _config.yml
+├── _data
+|   └── members.yml
+├── _drafts
+|   ├── begin-with-the-crazy-ideas.md
+|   └── on-simplicity-in-technology.md
+├── _includes
+|   ├── footer.html
+|   └── header.html
+├── _layouts
+|   ├── default.html
+|   └── post.html
+├── _posts
+|   ├── 2007-10-29-why-every-programmer-should-play-nethack.md
+|   └── 2009-04-26-barcamp-boston-4-roundup.md
+├── _sass
+|   ├── _base.scss
+|   └── _layout.scss
+├── _site
+├── .jekyll-metadata
+└── index.html # can also be an 'index.md' with valid front matter
+```
+
+Gatsby:
+```javascript
+/
+|-- /.cache
+|-- /plugins
+|-- /public
+|-- /src
+    |-- /pages
+    |-- /templates
+    |-- html.js
+|-- /static
+|-- gatsby-config.js
+|-- gatsby-node.js
+|-- gatsby-ssr.js
+|-- gatsby-browser.js
+```
+
 Almost all of them have a configuration file with top level information about the project.
 
+Pelican:
 ```bash
 nano pelicanconf.py
 ```
 
+Jekyll:
+```bash
+nano _config.yaml
+```
+
+Hugo:
+```bash
+nano config.toml
+```
+
 They have a folder(s) where you edit the content of your blog posts, pages, projects, etc... that is usually in the form of markdown files.
 
+Pelican or Hugo
 ```bash
 cd content
 ls
 ```
 
+Jekyll:
+```bash
+cd posts
+```
+
 They have folders where you store images, files, etc... as assets.
 
+Pelican:
 ```python3
 content
 ├── images
@@ -122,8 +216,25 @@ content
     └── test.md
 ```
 
+Hugo:
+```go
+.
+└── content
+    └── about
+    |   └── index.md  // <- https://example.com/about/
+    ├── posts
+    |   ├── firstpost.md   // <- https://example.com/posts/firstpost/
+    |   ├── happy
+    |   |   └── ness.md  // <- https://example.com/posts/happy/ness/
+    |   └── secondpost.md  // <- https://example.com/posts/secondpost/
+    └── quote
+        ├── first.md       // <- https://example.com/quote/first/
+        └── second.md      // <- https://example.com/quote/second/
+```
+
 They have html files that you can edit to customize layouts of your web pages, and folders that contain CSS and JavaScript files.
 
+Pelican:
 ```python3
 ├── static
 │   ├── css
@@ -142,6 +253,12 @@ They have html files that you can edit to customize layouts of your web pages, a
     └── tags.html             // must list all the tags. Can be a tag cloud.
 ```
 
+Jekyll:
+```bash
+cd layouts #or includes
+cd sass
+```
+
 They have themes that you can install to change the styling of your website.
 
 ```bash
@@ -154,9 +271,41 @@ And finally, they have commands that you can use to build the site:
 pelican /path/to/your/content/ [-s path/to/your/settings.py]
 ```
 
+Jekyll:
+```bash
+bundle exec jekyll build
+```
+
+Hugo:
+```bash
+hugo -D
+```
+
+Gatsby:
+```build
+gatsby build
+```
+
 And host the site locally:
+
+Python:
 ```bash
 pelican --listen
+```
+
+Jekyll:
+```bash
+bundle exec jekyll serve
+```
+
+Hugo:
+```bash
+hugo server -D
+```
+
+Gatsby:
+```bash
+gatsby develop #or serve
 ```
 
 ## Hosting Static Sites
@@ -180,21 +329,29 @@ Today the goal is for you try and get at least one, but ideally two of these sta
 
 1. Jekyll and Ruby
 
-Jekyll is the workhorse of DH, but has become less popular in recent years. 
+Jekyll is the workhorse of DH, but has become less popular in recent years in the broader development community.
 
-   - [Jekyll style guide](https://ben.balter.com/jekyll-style-guide/)
+- [How to quickstart with Jekyll](https://jekyllrb.com/docs/installation/macos/) and [tutorial](https://jekyllrb.com/docs/step-by-step/01-setup/)
 
-   - [Setting up a GitHub Pages site with Jekyll](https://help.github.com/en/github/working-with-github-pages/setting-up-a-github-pages-site-with-jekyll)
+- [Jekyll Github Repo](https://github.com/jekyll/jekyll)
 
-   - [Jekyll’s documentation on migrating existing websites](https://import.jekyllrb.com/docs/home/)
+- [Jekyll style guide](https://ben.balter.com/jekyll-style-guide/)
+
+- [Setting up a GitHub Pages site with Jekyll](https://help.github.com/en/github/working-with-github-pages/setting-up-a-github-pages-site-with-jekyll)
+
+- [Jekyll’s documentation on migrating existing websites](https://import.jekyllrb.com/docs/home/)
+
+- [Ben Balter’s WordPress plugin for exporting data from WordPress into Jekyll](https://wordpress.org/plugins/jekyll-exporter/)
+
+- [Exitwp, a Python script developed by Thomas Frössman](https://github.com/thomasf/exitwp)
   
-   - [Ben Balter’s WordPress plugin for exporting data from WordPress into Jekyll](https://wordpress.org/plugins/jekyll-exporter/)
+1. Pelican and Python
 
-   - [Exitwp, a Python script developed by Thomas Frössman](https://github.com/thomasf/exitwp)
-  
-2. Pelican and Python
+- [Pelican Github Repo](https://github.com/getpelican/pelican)
 
-    [Pelican Github Repo](https://github.com/getpelican/pelican)
+- [Pelican Quickstart docs](https://docs.getpelican.com/en/stable/quickstart.html)
+
+- [Pelican Themes](https://docs.getpelican.com/en/stable/pelican-themes.html)
 
 3. Gatsby and React
 
@@ -205,6 +362,6 @@ Try editing the `gatsby-config`, is it the same as a `config.yml` in jekyll?
 - [Gatsby tutorials](https://www.gatsbyjs.org/tutorial/)
 - [Gatsby demo site](https://cara.lekoarts.de/), [github repo](https://github.com/LekoArts/gatsby-starter-portfolio-cara)
 
-1. Hugo and Go
+4. Hugo and Go
 
 
